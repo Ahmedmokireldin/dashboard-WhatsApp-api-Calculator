@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name's WhatsApp Sender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #results, #pricingResults {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f3fe;
+            border-radius: 4px;
+        }
+        #pricePerMessage {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Name's WhatsApp Sender</h1>
+        
+        <div id="languageSelector">
+            <label for="language">Language / اللغة:</label>
+            <select id="language">
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+            </select>
+        </div>
+
+        <div id="senderCalculator">
+            <h2>Sender Calculator</h2>
+            <!-- Existing sender calculator inputs here -->
+        </div>
+
+        <div id="results"></div>
+
+        <div id="pricingCalculator">
+            <h2>Pricing Calculator</h2>
+            <label for="country">Select Country:</label>
+            <select id="country" onchange="updatePrice()">
+                <!-- Arab countries first -->
+                <option value="Egypt">Egypt</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Iraq">Iraq</option>
+                <option value="Jordan">Jordan</option>
+                <option value="Kuwait">Kuwait</option>
+                <option value="Lebanon">Lebanon</option>
+                <option value="Oman">Oman</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Yemen">Yemen</option>
+                <!-- Other countries alphabetically -->
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Albania">Albania</option>
+                <!-- Add all other countries here -->
+                <option value="Zimbabwe">Zimbabwe</option>
+            </select>
+
+            <label for="messageType">Select Message Type:</label>
+            <select id="messageType" onchange="updatePrice()">
+                <option value="service">Service conversation</option>
+                <option value="authentication">Authentication conversation</option>
+                <option value="utility">Utility conversation</option>
+                <option value="marketing">Marketing conversation</option>
+            </select>
+
+            <p>Price per message: <span id="pricePerMessage">$0.00</span></p>
+
+            <label for="messageCount">Number of Messages:</label>
+            <input type="number" id="messageCount" min="1" value="100" oninput="calculatePrice()">
+
+            <button onclick="calculatePrice()">Calculate Total Price</button>
+        </div>
+
+        <div id="pricingResults"></div>
+    </div>
+
+    <script>
+        const pricingData = {
+            "Egypt": { "service": 0.07, "authentication": 0.07, "utility": 0.01, "marketing": 0.12 },
+            "Saudi Arabia": { "service": 0.02, "authentication": 0.03, "utility": 0.01, "marketing": 0.05 },
+            "United Arab Emirates": { "service": 0.02, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
+            "Bahrain": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
+            "Iraq": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
+            "Jordan": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
+            "Kuwait": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
+            "Lebanon": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
+            "Oman": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
+            "Qatar": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
+            "Yemen": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
+            // Add all other countries here
+            "Other": { "service": 0.02, "authentication": 0.04, "utility": 0.01, "marketing": 0.07 }
+        };
+
+        function updatePrice() {
+            const country = document.getElementById('country').value;
+            const messageType = document.getElementById('messageType').value;
+            const pricePerMessage = pricingData[country][messageType];
+            document.getElementById('pricePerMessage').textContent = `$${pricePerMessage.toFixed(2)}`;
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            const country = document.getElementById('country').value;
+            const messageType = document.getElementById('messageType').value;
+            const messageCount = parseInt(document.getElementById('messageCount').value);
+
+            if (pricingData[country] && pricingData[country][messageType]) {
+                const pricePerMessage = pricingData[country][messageType];
+                const totalCost = pricePerMessage * messageCount;
+
+                document.getElementById('pricingResults').innerHTML = `
+                    <h3>Pricing Results</h3>
+                    <p>Country: ${country}</p>
+                    <p>Message Type: ${messageType}</p>
+                    <p>Number of Messages: ${messageCount}</p>
+                    <p>Price per Message: $${pricePerMessage.toFixed(2)}</p>
+                    <p>Total Cost: $${totalCost.toFixed(2)}</p>
+                `;
+            } else {
+                document.getElementById('pricingResults').innerHTML = '<p>Pricing information not available for the selected country or message type.</p>';
+            }
+        }
+
+        // Initialize price display
+        updatePrice();
+
+        // Add event listeners and any other necessary JavaScript here
+    </script>
+</body>
+</html>
