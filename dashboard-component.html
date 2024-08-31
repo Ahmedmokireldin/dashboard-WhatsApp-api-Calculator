@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name's WhatsApp Sender</title>
+    <title>Ahmed Mokireldin's WhatsApp Sender</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,51 +56,52 @@
             font-weight: bold;
             color: #4CAF50;
         }
+        .icon {
+            margin-right: 10px;
+            color: #4CAF50;
+        }
+        #visitorCounter {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        .social-icons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #4CAF50;
+            font-size: 24px;
+        }
+        .rtl {
+            direction: rtl;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Your Name's WhatsApp Sender</h1>
+    <div class="container" id="mainContainer">
+        <h1><i class="fab fa-whatsapp icon"></i><span id="title">Ahmed Mokireldin's WhatsApp Sender</span></h1>
         
         <div id="languageSelector">
-            <label for="language">Language / اللغة:</label>
-            <select id="language">
+            <label for="language"><i class="fas fa-language icon"></i><span id="languageLabel">Language / اللغة:</span></label>
+            <select id="language" onchange="changeLanguage()">
                 <option value="en">English</option>
                 <option value="ar">العربية</option>
             </select>
         </div>
 
-        <div id="senderCalculator">
-            <h2>Sender Calculator</h2>
-            <!-- Existing sender calculator inputs here -->
-        </div>
-
-        <div id="results"></div>
-
         <div id="pricingCalculator">
-            <h2>Pricing Calculator</h2>
-            <label for="country">Select Country:</label>
+            <h2><i class="fas fa-coins icon"></i><span id="pricingTitle">Pricing Calculator</span></h2>
+            <label for="country"><i class="fas fa-globe icon"></i><span id="countryLabel">Select Country:</span></label>
             <select id="country" onchange="updatePrice()">
-                <!-- Arab countries first -->
-                <option value="Egypt">Egypt</option>
-                <option value="Saudi Arabia">Saudi Arabia</option>
-                <option value="United Arab Emirates">United Arab Emirates</option>
-                <option value="Bahrain">Bahrain</option>
-                <option value="Iraq">Iraq</option>
-                <option value="Jordan">Jordan</option>
-                <option value="Kuwait">Kuwait</option>
-                <option value="Lebanon">Lebanon</option>
-                <option value="Oman">Oman</option>
-                <option value="Qatar">Qatar</option>
-                <option value="Yemen">Yemen</option>
-                <!-- Other countries alphabetically -->
-                <option value="Afghanistan">Afghanistan</option>
-                <option value="Albania">Albania</option>
-                <!-- Add all other countries here -->
-                <option value="Zimbabwe">Zimbabwe</option>
+                <!-- Countries will be populated dynamically using JavaScript -->
             </select>
 
-            <label for="messageType">Select Message Type:</label>
+            <label for="messageType"><i class="fas fa-envelope icon"></i><span id="messageTypeLabel">Select Message Type:</span></label>
             <select id="messageType" onchange="updatePrice()">
                 <option value="service">Service conversation</option>
                 <option value="authentication">Authentication conversation</option>
@@ -107,33 +109,109 @@
                 <option value="marketing">Marketing conversation</option>
             </select>
 
-            <p>Price per message: <span id="pricePerMessage">$0.00</span></p>
+            <p><i class="fas fa-tag icon"></i><span id="priceLabel">Price per message:</span> <span id="pricePerMessage">\$0.00</span></p>
 
-            <label for="messageCount">Number of Messages:</label>
+            <label for="messageCount"><i class="fas fa-list-ol icon"></i><span id="messageCountLabel">Number of Messages:</span></label>
             <input type="number" id="messageCount" min="1" value="100" oninput="calculatePrice()">
 
-            <button onclick="calculatePrice()">Calculate Total Price</button>
+            <button onclick="calculatePrice()"><i class="fas fa-calculator"></i> <span id="calculateButton">Calculate Total Price</span></button>
         </div>
 
         <div id="pricingResults"></div>
+
+        <div id="visitorCounter">
+            <i class="fas fa-users icon"></i><span id="visitorLabel">Visitors:</span> <span id="visitorCount">0</span>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://facebook.com/Ahmedmokireldin" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://instagram.com/Ahmedmokireldin" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@ahmedmokireldin" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://twitter.com/Ahmedmokireldin" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://linkedin.com/in/Ahmedmokireldin" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://threads.net/ahmedmokireldin" target="_blank"><i class="fas fa-at"></i></a>
+            <a href="https://pinterest.com/Ahmedmokireldin" target="_blank"><i class="fab fa-pinterest"></i></a>
+            <a href="mailto:Ahmedmokireldin@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://api.whatsapp.com/send?phone=201004101309&text=Client-GitHub-page" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
     </div>
 
     <script>
         const pricingData = {
+            "Argentina": { "service": 0.04, "authentication": 0.04, "utility": 0.04, "marketing": 0.07 },
+            "Brazil": { "service": 0.04, "authentication": 0.04, "utility": 0.01, "marketing": 0.08 },
+            "Chile": { "service": 0.05, "authentication": 0.06, "utility": 0.02, "marketing": 0.10 },
+            "Colombia": { "service": 0.01, "authentication": 0.01, "utility": 0.00, "marketing": 0.02 },
             "Egypt": { "service": 0.07, "authentication": 0.07, "utility": 0.01, "marketing": 0.12 },
+            "France": { "service": 0.10, "authentication": 0.08, "utility": 0.03, "marketing": 0.16 },
+            "Germany": { "service": 0.09, "authentication": 0.09, "utility": 0.06, "marketing": 0.16 },
+            "India": { "service": 0.01, "authentication": 0.00, "utility": 0.00, "marketing": 0.01 },
+            "Indonesia": { "service": 0.02, "authentication": 0.03, "utility": 0.02, "marketing": 0.05 },
+            "Israel": { "service": 0.02, "authentication": 0.02, "utility": 0.01, "marketing": 0.04 },
+            "Italy": { "service": 0.04, "authentication": 0.04, "utility": 0.03, "marketing": 0.08 },
+            "Malaysia": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.10 },
+            "Mexico": { "service": 0.01, "authentication": 0.03, "utility": 0.01, "marketing": 0.05 },
+            "Netherlands": { "service": 0.10, "authentication": 0.08, "utility": 0.06, "marketing": 0.18 },
+            "Nigeria": { "service": 0.04, "authentication": 0.03, "utility": 0.01, "marketing": 0.06 },
+            "Pakistan": { "service": 0.02, "authentication": 0.03, "utility": 0.01, "marketing": 0.05 },
+            "Peru": { "service": 0.02, "authentication": 0.04, "utility": 0.02, "marketing": 0.08 },
             "Saudi Arabia": { "service": 0.02, "authentication": 0.03, "utility": 0.01, "marketing": 0.05 },
+            "South Africa": { "service": 0.02, "authentication": 0.02, "utility": 0.01, "marketing": 0.04 },
+            "Spain": { "service": 0.04, "authentication": 0.04, "utility": 0.02, "marketing": 0.07 },
+            "Turkey": { "service": 0.01, "authentication": 0.01, "utility": 0.01, "marketing": 0.01 },
             "United Arab Emirates": { "service": 0.02, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Bahrain": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Iraq": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Jordan": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Kuwait": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Lebanon": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Oman": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Qatar": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Yemen": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            // Add all other countries here
-            "Other": { "service": 0.02, "authentication": 0.04, "utility": 0.01, "marketing": 0.07 }
+            "United Kingdom": { "service": 0.04, "authentication": 0.04, "utility": 0.03, "marketing": 0.08 },
+            "Canada": { "service": 0.01, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "United States": { "service": 0.01, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
         };
+
+        // Add Rest of Africa countries
+        const restOfAfrica = ["Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi", "Cameroon", "Chad", "Republic of the Congo", "Democratic Republic of the Congo", "Eritrea", "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea-Bissau", "Ivory Coast", "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Mali", "Mauritania", "Morocco", "Mozambique", "Namibia", "Niger", "Rwanda", "Senegal", "Sierra Leone", "Somalia", "South Sudan", "Sudan", "Swaziland", "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia"];
+        restOfAfrica.forEach(country => {
+            pricingData[country] = { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 };
+        });
+
+        // Add Rest of Asia Pacific countries
+        const restOfAsiaPacific = ["Afghanistan", "Australia", "Bangladesh", "Cambodia", "China", "Hong Kong", "Japan", "Laos", "Mongolia", "Nepal", "New Zealand", "Papua New Guinea", "Philippines", "Singapore", "Sri Lanka", "Taiwan", "Tajikistan", "Thailand", "Turkmenistan", "Uzbekistan", "Vietnam"];
+        restOfAsiaPacific.forEach(country => {
+            pricingData[country] = { "service": 0.03, "authentication": 0.05, "utility": 0.02, "marketing": 0.08 };
+        });
+
+        // Add Rest of Central & Eastern Europe countries
+        const restOfCentralEasternEurope = ["Albania", "Armenia", "Azerbaijan", "Belarus", "Bulgaria", "Croatia", "Czech Republic", "Georgia", "Greece", "Hungary", "Latvia", "Lithuania", "Macedonia", "Moldova", "Poland", "Romania", "Serbia", "Slovakia", "Slovenia", "Ukraine"];
+        restOfCentralEasternEurope.forEach(country => {
+            pricingData[country] = { "service": 0.03, "authentication": 0.06, "utility": 0.04, "marketing": 0.10 };
+        });
+
+        // Add Rest of Latin America countries
+        const restOfLatinAmerica = ["Bolivia", "Costa Rica", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", "Haiti", "Honduras", "Jamaica", "Nicaragua", "Panama", "Paraguay", "Puerto Rico", "Uruguay", "Venezuela"];
+        restOfLatinAmerica.forEach(country => {
+            pricingData[country] = { "service": 0.05, "authentication": 0.05, "utility": 0.01, "marketing": 0.09 };
+        });
+
+        // Add Rest of Middle East countries
+        const restOfMiddleEast = ["Bahrain", "Iraq", "Jordan", "Kuwait", "Lebanon", "Oman", "Qatar", "Yemen"];
+        restOfMiddleEast.forEach(country => {
+            pricingData[country] = { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 };
+        });
+
+        // Add Rest of Western Europe countries
+        const restOfWesternEurope = ["Austria", "Belgium", "Denmark", "Finland", "Ireland", "Norway", "Portugal", "Sweden", "Switzerland"];
+        restOfWesternEurope.forEach(country => {
+            pricingData[country] = { "service": 0.05, "authentication": 0.04, "utility": 0.03, "marketing": 0.07 };
+        });
+
+        // Add "Other" category
+        pricingData["Other"] = { "service": 0.02, "authentication": 0.04, "utility": 0.01, "marketing": 0.07 };
+
+        // Populate country dropdown
+        const countrySelect = document.getElementById('country');
+        Object.keys(pricingData).sort().forEach(country => {
+            const option = document.createElement('option');
+            option.value = country;
+            option.textContent = country;
+            countrySelect.appendChild(option);
+        });
 
         function updatePrice() {
             const country = document.getElementById('country').value;
@@ -153,22 +231,10 @@
                 const totalCost = pricePerMessage * messageCount;
 
                 document.getElementById('pricingResults').innerHTML = `
-                    <h3>Pricing Results</h3>
-                    <p>Country: ${country}</p>
-                    <p>Message Type: ${messageType}</p>
-                    <p>Number of Messages: ${messageCount}</p>
-                    <p>Price per Message: $${pricePerMessage.toFixed(2)}</p>
-                    <p>Total Cost: $${totalCost.toFixed(2)}</p>
-                `;
-            } else {
-                document.getElementById('pricingResults').innerHTML = '<p>Pricing information not available for the selected country or message type.</p>';
-            }
-        }
-
-        // Initialize price display
-        updatePrice();
-
-        // Add event listeners and any other necessary JavaScript here
-    </script>
-</body>
-</html>
+                    <h3>${translations[currentLang].pricingResults}</h3>
+                    <p>${translations[currentLang].country}: ${country}</p>
+                    <p>${translations[currentLang].messageType}: ${messageType}</p>
+                    <p>${translations[currentLang].numberOfMessages}: ${messageCount}</p>
+                    <p>${translations[currentLang].pricePerMessage}: $${pricePerMessage.toFixed(2)}</p>
+                    <p>${translations[currentLang].totalCost}: $${totalCost.toFixed(2)}</p>
+                
