@@ -7,41 +7,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 0;
-            background-color: #f0f4f8;
-            color: #2d3748;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            background-color: #25D366;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        .calculator-section, .results-section, .visitor-stats, .contact-info, .pricing-info {
-            background-color: white;
+            background-color: #fff;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-top: 20px;
-            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
-        h2 {
-            color: #25D366;
-            border-bottom: 2px solid #25D366;
-            padding-bottom: 10px;
+        h1, h2 {
+            color: #1877f2;
+            text-align: center;
         }
         label {
             display: block;
@@ -58,11 +42,11 @@
             transition: border-color 0.3s;
         }
         input:focus, select:focus {
-            border-color: #25D366;
+            border-color: #1877f2;
             outline: none;
         }
         button {
-            background-color: #25D366;
+            background-color: #1877f2;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -72,13 +56,25 @@
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #128C7E;
+            background-color: #166fe5;
         }
-        .results-item {
-            background-color: #e8f5e9;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 10px;
+        #results, #pricingResults {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #e7f3ff;
+            border-radius: 6px;
+            border-left: 5px solid #1877f2;
+        }
+        #pricePerMessage {
+            font-weight: bold;
+            color: #1877f2;
+            font-size: 18px;
+        }
+        .contact-info, .pricing-info {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border-radius: 6px;
         }
         .contact-button {
             display: inline-block;
@@ -93,6 +89,51 @@
         .contact-button:hover {
             background-color: #128C7E;
         }
+        .icon {
+            margin-right: 8px;
+        }
+        .animate-charcter {
+            background-image: linear-gradient(
+                -225deg,
+                #231557 0%,
+                #44107a 29%,
+                #ff1361 67%,
+                #fff800 100%
+            );
+            background-size: auto auto;
+            background-clip: border-box;
+            background-size: 200% auto;
+            color: #fff;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textclip 2s linear infinite;
+            display: inline-block;
+        }
+        @keyframes textclip {
+            to {
+                background-position: 200% center;
+            }
+        }
+        #visitorStats {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 6px;
+            border-left: 5px solid #1877f2;
+        }
+        #visitorStats p {
+            margin-bottom: 10px;
+        }
+        #topCountries {
+            margin-left: 20px;
+        }
+        .country-flag {
+            margin-right: 5px;
+        }
+        #country {
+            background-image: none;
+        }
         .country-option {
             display: flex;
             align-items: center;
@@ -101,35 +142,28 @@
             margin-right: 8px;
             font-size: 1.2em;
         }
-        footer {
-            background-color: #2d3748;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1><i class="fab fa-whatsapp"></i> Ahmed EL Sayed kireldin WhatsApp API Sender Calculator</h1>
-        <p>Calculate your WhatsApp API messaging costs quickly and easily</p>
-    </div>
-
+    <script async src="https://static.sppopups.com/assets/loader.js" data-chats-widget-id="c1903ad1-4991-4049-b43b-a678b84968a8"></script>
     <div class="container">
-        <div class="calculator-section">
-            <h2><i class="fas fa-calculator"></i> <span class="translate" data-translate="calculator">Pricing Calculator</span></h2>
-            <div id="languageSelector">
-                <label for="language"><i class="fas fa-language"></i> <span class="translate" data-translate="language">Language:</span></label>
-                <select id="language">
-                    <option value="en">English</option>
-                    <option value="ar">العربية</option>
-                </select>
-            </div>
-            <label for="country"><i class="fas fa-globe"></i> <span class="translate" data-translate="selectCountry">Select Country:</span></label>
+        <h1><i class="fab fa-whatsapp icon"></i> <span class="animate-charcter">Ahmed EL Sayed kireldin
+    WhatsApp API Sender Calculator</span></h1>
+        
+        <div id="languageSelector">
+            <label for="language"><i class="fas fa-language icon"></i> Language / اللغة:</label>
+            <select id="language">
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+            </select>
+        </div>
+
+        <div id="pricingCalculator">
+            <h2><i class="fas fa-coins icon"></i> <span class="translate" data-translate="calculator">Pricing Calculator</span></h2>
+            <label for="country"><i class="fas fa-globe icon"></i> <span class="translate" data-translate="selectCountry">Select Country:</span></label>
             <select id="country"></select>
 
-            <label for="messageType"><i class="fas fa-envelope"></i> <span class="translate" data-translate="selectMessageType">Select Message Type:</span></label>
+            <label for="messageType"><i class="fas fa-envelope icon"></i> <span class="translate" data-translate="selectMessageType">Select Message Type:</span></label>
             <select id="messageType">
                 <option value="service" class="translate" data-translate="serviceConversation">Service conversation</option>
                 <option value="authentication" class="translate" data-translate="authenticationConversation">Authentication conversation</option>
@@ -137,36 +171,36 @@
                 <option value="marketing" class="translate" data-translate="marketingConversation">Marketing conversation</option>
             </select>
 
-            <label for="messageCount"><i class="fas fa-list-ol"></i> <span class="translate" data-translate="numberOfMessages">Number of Messages:</span></label>
+            <p><i class="fas fa-tag icon"></i> <span class="translate" data-translate="pricePerMessage">Price per message:</span> <span id="pricePerMessage">\$0.00</span></p>
+
+            <label for="messageCount"><i class="fas fa-list-ol icon"></i> <span class="translate" data-translate="numberOfMessages">Number of Messages:</span></label>
             <input type="number" id="messageCount" min="1" value="100">
 
             <button id="calculateButton"><i class="fas fa-calculator"></i> <span class="translate" data-translate="calculateTotalPrice">Calculate Total Price</span></button>
         </div>
 
-        <div class="results-section" id="pricingResults">
-            <!-- Results will be displayed here -->
-        </div>
+        <div id="pricingResults"></div>
 
-        <div class="visitor-stats">
-            <h2><i class="fas fa-chart-bar"></i> <span class="translate" data-translate="visitorStatistics">Visitor Statistics</span></h2>
+        <div id="visitorStats">
+            <h2><i class="fas fa-chart-bar icon"></i> <span class="translate" data-translate="visitorStatistics">Visitor Statistics</span></h2>
             <p><i class="fas fa-eye"></i> <span class="translate" data-translate="totalVisits">Total Visits:</span> <span id="visitCount">0</span></p>
             <p><i class="fas fa-globe"></i> <span class="translate" data-translate="topCountries">Top Visiting Countries:</span></p>
             <ol id="topCountries"></ol>
         </div>
 
         <div class="contact-info">
-            <h2><i class="fas fa-address-book"></i> <span class="translate" data-translate="contactInformation">Contact Information</span></h2>
+            <h2><i class="fas fa-address-book icon"></i> <span class="translate" data-translate="contactInformation">Contact Information</span></h2>
             <p><span class="translate" data-translate="contactMessage">For more information or personalized solutions, please contact us:</span></p>
-            <a href="https://api.whatsapp.com/send?phone=201004101309" class="contact-button"><i class="fab fa-whatsapp"></i> <span class="translate" data-translate="contactViaWhatsApp">Contact via WhatsApp</span></a>
-            <a href="https://www.facebook.com/ahmedmokireldin" class="contact-button"><i class="fab fa-facebook-f"></i> <span class="translate" data-translate="contactViaFacebook">Contact via Facebook</span></a>
+            <a href="https://api.whatsapp.com/send?phone=201004101309" class="contact-button"><i class="fab fa-whatsapp icon"></i> <span class="translate" data-translate="contactViaWhatsApp">Contact via WhatsApp</span></a>
+            <a href="https://www.facebook.com/ahmedmokireldin" class="contact-button"><i class="fab fa-facebook-f icon"></i> <span class="translate" data-translate="contactViaFacebook">Contact via Facebook</span></a>
         </div>
 
         <div class="pricing-info">
-            <h2><i class="fas fa-info-circle"></i> <span class="translate" data-translate="pricingInformation">Pricing Information</span></h2>
+            <h2><i class="fas fa-info-circle icon"></i> <span class="translate" data-translate="pricingInformation">Pricing Information</span></h2>
             <p><span class="translate" data-translate="pricingDisclaimer">Our pricing is based on the latest WhatsApp Business API rates. For the most up-to-date and detailed pricing information, please refer to the following official sources:</span></p>
             <ul>
-                <li><a href="https://business.whatsapp.com/products/platform-pricing" target="_blank"><i class="fas fa-external-link-alt"></i> <span class="translate" data-translate="whatsAppBusinessAPIPricing">WhatsApp Business API Pricing</span></a></li>
-                <li><a href="https://developers.facebook.com/docs/whatsapp/pricing/" target="_blank"><i class="fas fa-external-link-alt"></i> <span class="translate" data-translate="facebookDevelopersPricing">Facebook Developers WhatsApp Pricing</span></a></li>
+                <li><a href="https://business.whatsapp.com/products/platform-pricing" target="_blank"><i class="fas fa-external-link-alt icon"></i> <span class="translate" data-translate="whatsAppBusinessAPIPricing">WhatsApp Business API Pricing</span></a></li>
+                <li><a href="https://developers.facebook.com/docs/whatsapp/pricing/" target="_blank"><i class="fas fa-external-link-alt icon"></i> <span class="translate" data-translate="facebookDevelopersPricing">Facebook Developers WhatsApp Pricing</span></a></li>
             </ul>
             <p><span class="translate" data-translate="pricingNote">Please note that pricing may vary based on factors such as country, message type, and volume. The calculator above provides estimates based on publicly available information.</span></p>
         </div>
@@ -249,83 +283,38 @@
             // Rest of the world
             "Other": { "service": 0.02, "authentication": 0.04, "utility": 0.01, "marketing": 0.07 }
         };
-        const translations = {
-            'en': {
-                'calculator': 'Pricing Calculator',
-                'selectCountry': 'Select Country',
-                'selectMessageType': 'Select Message Type',
-                'serviceConversation': 'Service conversation',
-                'authenticationConversation': 'Authentication conversation',
-                'utilityConversation': 'Utility conversation',
-                'marketingConversation': 'Marketing conversation',
-                'pricePerMessage': 'Price per message',
-                'numberOfMessages': 'Number of Messages',
-                'calculateTotalPrice': 'Calculate Total Price',
-                'pricingResults': 'Pricing Results',
-                'country': 'Country',
-                'messageType': 'Message Type',
-                'totalCost': 'Total Cost',
-                'pricingNotAvailable': 'Pricing information not available for the selected country or message type.',
-                'contactInformation': 'Contact Information',
-                'contactMessage': 'For more information or personalized solutions, please contact us:',
-                'contactViaWhatsApp': 'Contact via WhatsApp',
-                'contactViaFacebook': 'Contact via Facebook',
-                'pricingInformation': 'Pricing Information',
-                'pricingDisclaimer': 'Our pricing is based on the latest WhatsApp Business API rates. For the most up-to-date and detailed pricing information, please refer to the following official sources:',
-                'whatsAppBusinessAPIPricing': 'WhatsApp Business API Pricing',
-                'facebookDevelopersPricing': 'Facebook Developers WhatsApp Pricing',
-                'pricingNote': 'Please note that pricing may vary based on factors such as country, message type, and volume. The calculator above provides estimates based on publicly available information.',
-                'visitorStatistics': 'Visitor Statistics',
-                'totalVisits': 'Total Visits:',
-                'topCountries': 'Top Visiting Countries:',
-                'language': 'Language'
-            },
-            'ar': {
-                'calculator': 'حاسبة التسعير',
-                'selectCountry': 'اختر الدولة',
-                'selectMessageType': 'اختر نوع الرسالة',
-                'serviceConversation': 'محادثة خدمة',
-                'authenticationConversation': 'محادثة مصادقة',
-                'utilityConversation': 'محادثة مرافق',
-                'marketingConversation': 'محادثة تسويقية',
-                'pricePerMessage': 'السعر لكل رسالة',
-                'numberOfMessages': 'عدد الرسائل',
-                'calculateTotalPrice': 'احسب السعر الإجمالي',
-                'pricingResults': 'نتائج التسعير',
-                'country': 'الدولة',
-                'messageType': 'نوع الرسالة',
-                'totalCost': 'التكلفة الإجمالية',
-                'pricingNotAvailable': 'معلومات التسعير غير متوفرة للدولة أو نوع الرسالة المحدد.',
-                'contactInformation': 'معلومات الاتصال',
-                'contactMessage': 'للمزيد من المعلومات أو الحلول المخصصة، يرجى الاتصال بنا:',
-                'contactViaWhatsApp': 'اتصل عبر واتساب',
-                'contactViaFacebook': 'اتصل عبر فيسبوك',
-                'pricingInformation': 'معلومات التسعير',
-                'pricingDisclaimer': 'تستند أسعارنا إلى أحدث أسعار واجهة برمجة تطبيقات WhatsApp Business. للحصول على أحدث معلومات التسعير التفصيلية، يرجى الرجوع إلى المصادر الرسمية التالية:',
-                'whatsAppBusinessAPIPricing': 'تسعير واجهة برمجة تطبيقات WhatsApp Business',
-                'facebookDevelopersPricing': 'تسعير WhatsApp لمطوري فيسبوك',
-                'pricingNote': 'يرجى ملاحظة أن الأسعار قد تختلف بناءً على عوامل مثل الدولة ونوع الرسالة والحجم. توفر الحاسبة أعلاه تقديرات بناءً على المعلومات المتاحة للجمهور.',
-                'visitorStatistics': 'إحصائيات الزوار',
-                'totalVisits': 'إجمالي الزيارات:',
-                'topCountries': 'أعلى الدول زيارة:',
-                'language': 'اللغة'
-            }
-        };
-
-        function getTranslation(key) {
-            const lang = document.getElementById('language').value;
-            return translations[lang][key] || key;
-        }
 
         function populateCountries() {
             const countrySelect = document.getElementById('country');
             for (let country in pricingData) {
                 let option = document.createElement('option');
                 option.value = country;
-                option.innerHTML = `<span class="fi fi-${pricingData[country].code}"></span> ${country}`;
+                let countryCode = getCountryCode(country);
+                option.innerHTML = `<span class="fi fi-${countryCode}"></span> ${country}`;
                 option.className = 'country-option';
                 countrySelect.appendChild(option);
             }
+        }
+
+        function getCountryCode(countryName) {
+            const countryCodes = {
+                "Argentina": "ar", "Brazil": "br", "Chile": "cl", "Colombia": "co", "Egypt": "eg",
+                "France": "fr", "Germany": "de", "India": "in", "Indonesia": "id", "Israel": "il",
+                "Italy": "it", "Malaysia": "my", "Mexico": "mx", "Netherlands": "nl", "Nigeria": "ng",
+                "Pakistan": "pk", "Peru": "pe", "Saudi Arabia": "sa", "South Africa": "za", "Spain": "es",
+                "Turkey": "tr", "United Arab Emirates": "ae", "United Kingdom": "gb", "Canada": "ca",
+                "United States": "us", "Algeria": "dz", "Angola": "ao", "Benin": "bj", "Botswana": "bw",
+                "Burkina Faso": "bf", "Burundi": "bi", "Cameroon": "cm", "Chad": "td", 
+                "Republic of the Congo": "cg", "Democratic Republic of the Congo": "cd", "Eritrea": "er",
+                "Ethiopia": "et", "Gabon": "ga", "Gambia": "gm", "Ghana": "gh", "Guinea-Bissau": "gw",
+                "Ivory Coast": "ci", "Kenya": "ke", "Lesotho": "ls", "Liberia": "lr", "Libya": "ly",
+                "Madagascar": "mg", "Malawi": "mw", "Mali": "ml", "Mauritania": "mr", "Morocco": "ma",
+                "Mozambique": "mz", "Namibia": "na", "Niger": "ne", "Rwanda": "rw", "Senegal": "sn",
+                "Sierra Leone": "sl", "Somalia": "so", "South Sudan": "ss", "Sudan": "sd", "Swaziland": "sz",
+                "Tanzania": "tz", "Togo": "tg", "Tunisia": "tn", "Uganda": "ug", "Zambia": "zm",
+                "Zimbabwe": "zw"
+            };
+            return countryCodes[countryName] || "un"; // "un" for unknown
         }
 
         function updatePrice() {
@@ -347,7 +336,7 @@
 
                 document.getElementById('pricingResults').innerHTML = `
                     <h3>${getTranslation('pricingResults')}</h3>
-                    <p><span class="fi fi-${pricingData[country].code}"></span> ${getTranslation('country')}: ${country}</p>
+                    <p>${getTranslation('country')}: ${country}</p>
                     <p>${getTranslation('messageType')}: ${getTranslation(messageType + 'Conversation')}</p>
                     <p>${getTranslation('numberOfMessages')}: ${messageCount}</p>
                     <p>${getTranslation('pricePerMessage')}: $${pricePerMessage.toFixed(2)}</p>
@@ -392,6 +381,72 @@
             });
         }
 
+        const translations = {
+            'en': {
+                'calculator': 'Pricing Calculator',
+                'selectCountry': 'Select Country',
+                'selectMessageType': 'Select Message Type',
+                'serviceConversation': 'Service conversation',
+                'authenticationConversation': 'Authentication conversation',
+                'utilityConversation': 'Utility conversation',
+                'marketingConversation': 'Marketing conversation',
+                'pricePerMessage': 'Price per message',
+                'numberOfMessages': 'Number of Messages',
+                'calculateTotalPrice': 'Calculate Total Price',
+                'pricingResults': 'Pricing Results',
+                'country': 'Country',
+                'messageType': 'Message Type',
+                'totalCost': 'Total Cost',
+                'pricingNotAvailable': 'Pricing information not available for the selected country or message type.',
+                'contactInformation': 'Contact Information',
+                'contactMessage': 'For more information or personalized solutions, please contact us:',
+                'contactViaWhatsApp': 'Contact via WhatsApp',
+                'contactViaFacebook': 'Contact via Facebook',
+                'pricingInformation': 'Pricing Information',
+                'pricingDisclaimer': 'Our pricing is based on the latest WhatsApp Business API rates. For the most up-to-date and detailed pricing information, please refer to the following official sources:',
+                'whatsAppBusinessAPIPricing': 'WhatsApp Business API Pricing',
+                'facebookDevelopersPricing': 'Facebook Developers WhatsApp Pricing',
+                'pricingNote': 'Please note that pricing may vary based on factors such as country, message type, and volume. The calculator above provides estimates based on publicly available information.',
+                'visitorStatistics': 'Visitor Statistics',
+                'totalVisits': 'Total Visits:',
+                'topCountries': 'Top Visiting Countries:'
+            },
+            'ar': {
+                'calculator': 'حاسبة التسعير',
+                'selectCountry': 'اختر الدولة',
+                'selectMessageType': 'اختر نوع الرسالة',
+                'serviceConversation': 'محادثة خدمة',
+                'authenticationConversation': 'محادثة مصادقة',
+                'utilityConversation': 'محادثة مرافق',
+                'marketingConversation': 'محادثة تسويقية',
+                'pricePerMessage': 'السعر لكل رسالة',
+                'numberOfMessages': 'عدد الرسائل',
+                'calculateTotalPrice': 'احسب السعر الإجمالي',
+                'pricingResults': 'نتائج التسعير',
+                'country': 'الدولة',
+                'messageType': 'نوع الرسالة',
+                'totalCost': 'التكلفة الإجمالية',
+                'pricingNotAvailable': 'معلومات التسعير غير متوفرة للدولة أو نوع الرسالة المحدد.',
+                'contactInformation': 'معلومات الاتصال',
+                'contactMessage': 'للمزيد من المعلومات أو الحلول المخصصة، يرجى الاتصال بنا:',
+                'contactViaWhatsApp': 'اتصل عبر واتساب',
+                'contactViaFacebook': 'اتصل عبر فيسبوك',
+                'pricingInformation': 'معلومات التسعير',
+                'pricingDisclaimer': 'تستند أسعارنا إلى أحدث أسعار واجهة برمجة تطبيقات WhatsApp Business. للحصول على أحدث معلومات التسعير التفصيلية، يرجى الرجوع إلى المصادر الرسمية التالية:',
+                'whatsAppBusinessAPIPricing': 'تسعير واجهة برمجة تطبيقات WhatsApp Business',
+                'facebookDevelopersPricing': 'تسعير WhatsApp لمطوري فيسبوك',
+                'pricingNote': 'يرجى ملاحظة أن الأسعار قد تختلف بناءً على عوامل مثل الدولة ونوع الرسالة والحجم. توفر الحاسبة أعلاه تقديرات بناءً على المعلومات المتاحة للجمهور.',
+                'visitorStatistics': 'إحصائيات الزوار',
+                'totalVisits': 'إجمالي الزيارات:',
+                'topCountries': 'أعلى الدول زيارة:'
+            }
+        };
+
+        function getTranslation(key) {
+            const lang = document.getElementById('language').value;
+            return translations[lang][key] || key;
+        }
+
         function updateLanguage() {
             const elements = document.querySelectorAll('.translate');
             elements.forEach(element => {
@@ -413,14 +468,13 @@
             document.getElementById('calculateButton').addEventListener('click', calculatePrice);
             document.getElementById('language').addEventListener('change', updateLanguage);
 
-                        // Add flags to the country dropdown on focus
+            // إضافة أعلام الدول إلى القائمة المنسدلة
             const countrySelect = document.getElementById('country');
             countrySelect.addEventListener('focus', function() {
                 if (!this.classList.contains('flags-added')) {
                     Array.from(this.options).forEach(option => {
-                        const country = option.value;
-                        const countryCode = pricingData[country].code;
-                        option.innerHTML = `<span class="fi fi-${countryCode}"></span> ${country}`;
+                        const countryCode = getCountryCode(option.textContent.trim());
+                        option.innerHTML = `<span class="fi fi-${countryCode} country-flag"></span>${option.textContent}`;
                     });
                     this.classList.add('flags-added');
                 }
@@ -428,4 +482,4 @@
         });
     </script>
 </body>
-</html>
+</html>				
