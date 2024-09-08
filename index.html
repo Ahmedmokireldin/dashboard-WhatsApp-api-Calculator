@@ -4,136 +4,259 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahmedmokireldin WhatsApp API Sender Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #f0f2f5;
+            color: #333;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
             background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
         h1, h2 {
-            color: #333;
+            color: #1877f2;
+            text-align: center;
         }
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: bold;
         }
         input, select {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #1877f2;
+            outline: none;
         }
         button {
-            background-color: #4CAF50;
+            background-color: #1877f2;
             color: white;
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #166fe5;
         }
         #results, #pricingResults {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e7f3fe;
-            border-radius: 4px;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #e7f3ff;
+            border-radius: 6px;
+            border-left: 5px solid #1877f2;
         }
         #pricePerMessage {
             font-weight: bold;
-            color: #4CAF50;
+            color: #1877f2;
+            font-size: 18px;
+        }
+        .contact-info, .pricing-info {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border-radius: 6px;
+        }
+        .contact-button {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 10px 5px;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+        .contact-button:hover {
+            background-color: #128C7E;
+        }
+        .icon {
+            margin-right: 8px;
+        }
+        .animate-charcter {
+            background-image: linear-gradient(
+                -225deg,
+                #231557 0%,
+                #44107a 29%,
+                #ff1361 67%,
+                #fff800 100%
+            );
+            background-size: auto auto;
+            background-clip: border-box;
+            background-size: 200% auto;
+            color: #fff;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textclip 2s linear infinite;
+            display: inline-block;
+        }
+        @keyframes textclip {
+            to {
+                background-position: 200% center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Ahmedmokireldin WhatsApp API Sender Calculator</h1>
+        <h1><i class="fab fa-whatsapp icon"></i> <span class="animate-charcter">Ahmedmokireldin WhatsApp API Sender Calculator</span></h1>
         
         <div id="languageSelector">
-            <label for="language">Language / اللغة:</label>
+            <label for="language"><i class="fas fa-language icon"></i> Language / اللغة:</label>
             <select id="language">
                 <option value="en">English</option>
                 <option value="ar">العربية</option>
             </select>
         </div>
 
-        <div id="senderCalculator">
-            <h2>Sender Calculator</h2>
-            <!-- Existing sender calculator inputs here -->
-        </div>
-
-        <div id="results"></div>
-
         <div id="pricingCalculator">
-            <h2>Pricing Calculator</h2>
-            <label for="country">Select Country:</label>
-            <select id="country" onchange="updatePrice()">
-                <!-- Arab countries first -->
-                <option value="Egypt">Egypt</option>
-                <option value="Saudi Arabia">Saudi Arabia</option>
-                <option value="United Arab Emirates">United Arab Emirates</option>
-                <option value="Bahrain">Bahrain</option>
-                <option value="Iraq">Iraq</option>
-                <option value="Jordan">Jordan</option>
-                <option value="Kuwait">Kuwait</option>
-                <option value="Lebanon">Lebanon</option>
-                <option value="Oman">Oman</option>
-                <option value="Qatar">Qatar</option>
-                <option value="Yemen">Yemen</option>
-                <!-- Other countries alphabetically -->
-                <option value="Afghanistan">Afghanistan</option>
-                <option value="Albania">Albania</option>
-                <!-- Add all other countries here -->
-                <option value="Zimbabwe">Zimbabwe</option>
+            <h2><i class="fas fa-coins icon"></i> <span class="translate" data-translate="calculator">Pricing Calculator</span></h2>
+            <label for="country"><i class="fas fa-globe icon"></i> <span class="translate" data-translate="selectCountry">Select Country:</span></label>
+            <select id="country"></select>
+
+            <label for="messageType"><i class="fas fa-envelope icon"></i> <span class="translate" data-translate="selectMessageType">Select Message Type:</span></label>
+            <select id="messageType">
+                <option value="service" class="translate" data-translate="serviceConversation">Service conversation</option>
+                <option value="authentication" class="translate" data-translate="authenticationConversation">Authentication conversation</option>
+                <option value="utility" class="translate" data-translate="utilityConversation">Utility conversation</option>
+                <option value="marketing" class="translate" data-translate="marketingConversation">Marketing conversation</option>
             </select>
 
-            <label for="messageType">Select Message Type:</label>
-            <select id="messageType" onchange="updatePrice()">
-                <option value="service">Service conversation</option>
-                <option value="authentication">Authentication conversation</option>
-                <option value="utility">Utility conversation</option>
-                <option value="marketing">Marketing conversation</option>
-            </select>
+            <p><i class="fas fa-tag icon"></i> <span class="translate" data-translate="pricePerMessage">Price per message:</span> <span id="pricePerMessage">\$0.00</span></p>
 
-            <p>Price per message: <span id="pricePerMessage">$0.00</span></p>
+            <label for="messageCount"><i class="fas fa-list-ol icon"></i> <span class="translate" data-translate="numberOfMessages">Number of Messages:</span></label>
+            <input type="number" id="messageCount" min="1" value="100">
 
-            <label for="messageCount">Number of Messages:</label>
-            <input type="number" id="messageCount" min="1" value="100" oninput="calculatePrice()">
-
-            <button onclick="calculatePrice()">Calculate Total Price</button>
+            <button id="calculateButton"><i class="fas fa-calculator"></i> <span class="translate" data-translate="calculateTotalPrice">Calculate Total Price</span></button>
         </div>
 
         <div id="pricingResults"></div>
+
+        <div class="contact-info">
+            <h2><i class="fas fa-address-book icon"></i> <span class="translate" data-translate="contactInformation">Contact Information</span></h2>
+            <p><span class="translate" data-translate="contactMessage">For more information or personalized solutions, please contact us:</span></p>
+            <a href="https://api.whatsapp.com/send?phone=201004101309" class="contact-button"><i class="fab fa-whatsapp icon"></i> <span class="translate" data-translate="contactViaWhatsApp">Contact via WhatsApp</span></a>
+            <a href="https://www.facebook.com/ahmedmokireldin" class="contact-button"><i class="fab fa-facebook-f icon"></i> <span class="translate" data-translate="contactViaFacebook">Contact via Facebook</span></a>
+        </div>
+
+        <div class="pricing-info">
+            <h2><i class="fas fa-info-circle icon"></i> <span class="translate" data-translate="pricingInformation">Pricing Information</span></h2>
+            <p><span class="translate" data-translate="pricingDisclaimer">Our pricing is based on the latest WhatsApp Business API rates. For the most up-to-date and detailed pricing information, please refer to the following official sources:</span></p>
+            <ul>
+                <li><a href="https://business.whatsapp.com/products/platform-pricing" target="_blank"><i class="fas fa-external-link-alt icon"></i> <span class="translate" data-translate="whatsAppBusinessAPIPricing">WhatsApp Business API Pricing</span></a></li>
+                <li><a href="https://developers.facebook.com/docs/whatsapp/pricing/" target="_blank"><i class="fas fa-external-link-alt icon"></i> <span class="translate" data-translate="facebookDevelopersPricing">Facebook Developers WhatsApp Pricing</span></a></li>
+            </ul>
+            <p><span class="translate" data-translate="pricingNote">Please note that pricing may vary based on factors such as country, message type, and volume. The calculator above provides estimates based on publicly available information.</span></p>
+        </div>
     </div>
+
+    <footer>
+        <p>&copy; 2024 Ahmed el sayed. All rights reserved.</p>
+    </footer>
 
     <script>
         const pricingData = {
+            "Argentina": { "service": 0.04, "authentication": 0.04, "utility": 0.04, "marketing": 0.07 },
+            "Brazil": { "service": 0.04, "authentication": 0.04, "utility": 0.01, "marketing": 0.08 },
+            "Chile": { "service": 0.05, "authentication": 0.06, "utility": 0.02, "marketing": 0.10 },
+            "Colombia": { "service": 0.01, "authentication": 0.01, "utility": 0.00, "marketing": 0.02 },
             "Egypt": { "service": 0.07, "authentication": 0.07, "utility": 0.01, "marketing": 0.12 },
+            "France": { "service": 0.10, "authentication": 0.08, "utility": 0.03, "marketing": 0.16 },
+            "Germany": { "service": 0.09, "authentication": 0.09, "utility": 0.06, "marketing": 0.16 },
+            "India": { "service": 0.01, "authentication": 0.00, "utility": 0.00, "marketing": 0.01 },
+            "Indonesia": { "service": 0.02, "authentication": 0.03, "utility": 0.02, "marketing": 0.05 },
+            "Israel": { "service": 0.02, "authentication": 0.02, "utility": 0.01, "marketing": 0.04 },
+            "Italy": { "service": 0.04, "authentication": 0.04, "utility": 0.03, "marketing": 0.08 },
+            "Malaysia": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.10 },
+            "Mexico": { "service": 0.01, "authentication": 0.03, "utility": 0.01, "marketing": 0.05 },
+            "Netherlands": { "service": 0.10, "authentication": 0.08, "utility": 0.06, "marketing": 0.18 },
+            "Nigeria": { "service": 0.04, "authentication": 0.03, "utility": 0.01, "marketing": 0.06 },
+            "Pakistan": { "service": 0.02, "authentication": 0.03, "utility": 0.01, "marketing": 0.05 },
+            "Peru": { "service": 0.02, "authentication": 0.04, "utility": 0.02, "marketing": 0.08 },
             "Saudi Arabia": { "service": 0.02, "authentication": 0.03, "utility": 0.01, "marketing": 0.05 },
+            "South Africa": { "service": 0.02, "authentication": 0.02, "utility": 0.01, "marketing": 0.04 },
+            "Spain": { "service": 0.04, "authentication": 0.04, "utility": 0.02, "marketing": 0.07 },
+            "Turkey": { "service": 0.01, "authentication": 0.01, "utility": 0.01, "marketing": 0.01 },
             "United Arab Emirates": { "service": 0.02, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Bahrain": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Iraq": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Jordan": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Kuwait": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Lebanon": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Oman": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Qatar": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            "Yemen": { "service": 0.03, "authentication": 0.02, "utility": 0.02, "marketing": 0.04 },
-            // Add all other countries here
+            "United Kingdom": { "service": 0.04, "authentication": 0.04, "utility": 0.03, "marketing": 0.08 },
+            "Canada": { "service": 0.01, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "United States": { "service": 0.01, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            // Rest of Africa
+            "Algeria": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Angola": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Benin": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Botswana": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Burkina Faso": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Burundi": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Cameroon": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Chad": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Republic of the Congo": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Democratic Republic of the Congo": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Eritrea": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Ethiopia": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Gabon": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Gambia": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Ghana": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Guinea-Bissau": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Ivory Coast": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Kenya": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Lesotho": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Liberia": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Libya": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Madagascar": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Malawi": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Mali": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Mauritania": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Morocco": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Mozambique": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Namibia": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Niger": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Rwanda": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Senegal": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Sierra Leone": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Somalia": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "South Sudan": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Sudan": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Swaziland": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Tanzania": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Togo": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Tunisia": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Uganda": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Zambia": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            "Zimbabwe": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+            // Rest of the world
             "Other": { "service": 0.02, "authentication": 0.04, "utility": 0.01, "marketing": 0.07 }
         };
+
+        // Populate country dropdown
+        function populateCountries() {
+            const countrySelect = document.getElementById('country');
+            for (let country in pricingData) {
+                let option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                countrySelect.appendChild(option);
+            }
+        }
 
         function updatePrice() {
             const country = document.getElementById('country').value;
@@ -153,30 +276,100 @@
                 const totalCost = pricePerMessage * messageCount;
 
                 document.getElementById('pricingResults').innerHTML = `
-                    <h3>Pricing Results</h3>
-                    <p>Country: ${country}</p>
-                    <p>Message Type: ${messageType}</p>
-                    <p>Number of Messages: ${messageCount}</p>
-                    <p>Price per Message: $${pricePerMessage.toFixed(2)}</p>
-                    <p>Total Cost: $${totalCost.toFixed(2)}</p>
+                    <h3>${getTranslation('pricingResults')}</h3>
+                    <p>${getTranslation('country')}: ${country}</p>
+                    <p>${getTranslation('messageType')}: ${getTranslation(messageType + 'Conversation')}</p>
+                    <p>${getTranslation('numberOfMessages')}: ${messageCount}</p>
+                    <p>${getTranslation('pricePerMessage')}: $${pricePerMessage.toFixed(2)}</p>
+                    <p>${getTranslation('totalCost')}: $${totalCost.toFixed(2)}</p>
                 `;
             } else {
-                document.getElementById('pricingResults').innerHTML = '<p>Pricing information not available for the selected country or message type.</p>';
+                document.getElementById('pricingResults').innerHTML = `<p>${getTranslation('pricingNotAvailable')}</p>`;
             }
         }
 
-        // Initialize price display
-        updatePrice();
+        // Language translation
+        const translations = {
+            'en': {
+                'calculator': 'Pricing Calculator',
+                'selectCountry': 'Select Country',
+                'selectMessageType': 'Select Message Type',
+                'serviceConversation': 'Service conversation',
+                'authenticationConversation': 'Authentication conversation',
+                'utilityConversation': 'Utility conversation',
+                'marketingConversation': 'Marketing conversation',
+                'pricePerMessage': 'Price per message',
+                'numberOfMessages': 'Number of Messages',
+                'calculateTotalPrice': 'Calculate Total Price',
+                'pricingResults': 'Pricing Results',
+                'country': 'Country',
+                'messageType': 'Message Type',
+                'totalCost': 'Total Cost',
+                'pricingNotAvailable': 'Pricing information not available for the selected country or message type.',
+                'contactInformation': 'Contact Information',
+                'contactMessage': 'For more information or personalized solutions, please contact us:',
+                'contactViaWhatsApp': 'Contact via WhatsApp',
+                'contactViaFacebook': 'Contact via Facebook',
+                'pricingInformation': 'Pricing Information',
+                'pricingDisclaimer': 'Our pricing is based on the latest WhatsApp Business API rates. For the most up-to-date and detailed pricing information, please refer to the following official sources:',
+                'whatsAppBusinessAPIPricing': 'WhatsApp Business API Pricing',
+                'facebookDevelopersPricing': 'Facebook Developers WhatsApp Pricing',
+                'pricingNote': 'Please note that pricing may vary based on factors such as country, message type, and volume. The calculator above provides estimates based on publicly available information.'
+            },
+            'ar': {
+                'calculator': 'حاسبة التسعير',
+                'selectCountry': 'اختر الدولة',
+                'selectMessageType': 'اختر نوع الرسالة',
+                'serviceConversation': 'محادثة خدمة',
+                'authenticationConversation': 'محادثة مصادقة',
+                'utilityConversation': 'محادثة مرافق',
+                'marketingConversation': 'محادثة تسويقية',
+                'pricePerMessage': 'السعر لكل رسالة',
+                'numberOfMessages': 'عدد الرسائل',
+                'calculateTotalPrice': 'احسب السعر الإجمالي',
+                'pricingResults': 'نتائج التسعير',
+                'country': 'الدولة',
+                'messageType': 'نوع الرسالة',
+                'totalCost': 'التكلفة الإجمالية',
+                'pricingNotAvailable': 'معلومات التسعير غير متوفرة للدولة أو نوع الرسالة المحدد.',
+                'contactInformation': 'معلومات الاتصال',
+                'contactMessage': 'للمزيد من المعلومات أو الحلول المخصصة، يرجى الاتصال بنا:',
+                'contactViaWhatsApp': 'اتصل عبر واتساب',
+                'contactViaFacebook': 'اتصل عبر فيسبوك',
+                'pricingInformation': 'معلومات التسعير',
+                'pricingDisclaimer': 'تستند أسعارنا إلى أحدث أسعار واجهة برمجة تطبيقات WhatsApp Business. للحصول على أحدث معلومات التسعير التفصيلية، يرجى الرجوع إلى المصادر الرسمية التالية:',
+                'whatsAppBusinessAPIPricing': 'تسعير واجهة برمجة تطبيقات WhatsApp Business',
+                'facebookDevelopersPricing': 'تسعير WhatsApp لمطوري فيسبوك',
+                'pricingNote': 'يرجى ملاحظة أن الأسعار قد تختلف بناءً على عوامل مثل الدولة ونوع الرسالة والحجم. توفر الحاسبة أعلاه تقديرات بناءً على المعلومات المتاحة للجمهور.'
+            }
+        };
 
-        // Add event listeners and any other necessary JavaScript here
+        function getTranslation(key) {
+            const lang = document.getElementById('language').value;
+            return translations[lang][key] || key;
+        }
+
+        function updateLanguage() {
+            const elements = document.querySelectorAll('.translate');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                element.textContent = getTranslation(key);
+            });
+            updatePrice();
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            populateCountries();
+            updatePrice();
+            updateLanguage();
+            
+            // Add event listeners
+            document.getElementById('country').addEventListener('change', updatePrice);
+            document.getElementById('messageType').addEventListener('change', updatePrice);
+            document.getElementById('calculateButton').addEventListener('click', calculatePrice);
+            document.getElementById('language').addEventListener('change', updateLanguage);
+        });
     </script>
-            </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Ahmed el sayed. All rights reserved.</p>
-    </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
