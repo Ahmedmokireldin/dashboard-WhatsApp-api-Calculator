@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmedmokireldin WhatsApp API Sender Calculator</title>
+    <title>Ahmed EL Sayed kireldin WhatsApp API Sender Calculator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -114,11 +115,40 @@
                 background-position: 200% center;
             }
         }
+        #visitorStats {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 6px;
+            border-left: 5px solid #1877f2;
+        }
+        #visitorStats p {
+            margin-bottom: 10px;
+        }
+        #topCountries {
+            margin-left: 20px;
+        }
+        .country-flag {
+            margin-right: 5px;
+        }
+        #country {
+            background-image: none;
+        }
+        .country-option {
+            display: flex;
+            align-items: center;
+        }
+        .country-flag {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
+    <script async src="https://static.sppopups.com/assets/loader.js" data-chats-widget-id="c1903ad1-4991-4049-b43b-a678b84968a8"></script>
     <div class="container">
-        <h1><i class="fab fa-whatsapp icon"></i> <span class="animate-charcter">Ahmedmokireldin WhatsApp API Sender Calculator</span></h1>
+        <h1><i class="fab fa-whatsapp icon"></i> <span class="animate-charcter">Ahmed EL Sayed kireldin
+    WhatsApp API Sender Calculator</span></h1>
         
         <div id="languageSelector">
             <label for="language"><i class="fas fa-language icon"></i> Language / اللغة:</label>
@@ -150,6 +180,13 @@
         </div>
 
         <div id="pricingResults"></div>
+
+        <div id="visitorStats">
+            <h2><i class="fas fa-chart-bar icon"></i> <span class="translate" data-translate="visitorStatistics">Visitor Statistics</span></h2>
+            <p><i class="fas fa-eye"></i> <span class="translate" data-translate="totalVisits">Total Visits:</span> <span id="visitCount">0</span></p>
+            <p><i class="fas fa-globe"></i> <span class="translate" data-translate="topCountries">Top Visiting Countries:</span></p>
+            <ol id="topCountries"></ol>
+        </div>
 
         <div class="contact-info">
             <h2><i class="fas fa-address-book icon"></i> <span class="translate" data-translate="contactInformation">Contact Information</span></h2>
@@ -210,7 +247,7 @@
             "Cameroon": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
             "Chad": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
             "Republic of the Congo": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
-            "Democratic Republic of the Congo": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
+                        "Democratic Republic of the Congo": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
             "Eritrea": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
             "Ethiopia": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
             "Gabon": { "service": 0.04, "authentication": 0.02, "utility": 0.01, "marketing": 0.03 },
@@ -247,15 +284,37 @@
             "Other": { "service": 0.02, "authentication": 0.04, "utility": 0.01, "marketing": 0.07 }
         };
 
-        // Populate country dropdown
         function populateCountries() {
             const countrySelect = document.getElementById('country');
             for (let country in pricingData) {
                 let option = document.createElement('option');
                 option.value = country;
-                option.textContent = country;
+                let countryCode = getCountryCode(country);
+                option.innerHTML = `<span class="fi fi-${countryCode}"></span> ${country}`;
+                option.className = 'country-option';
                 countrySelect.appendChild(option);
             }
+        }
+
+        function getCountryCode(countryName) {
+            const countryCodes = {
+                "Argentina": "ar", "Brazil": "br", "Chile": "cl", "Colombia": "co", "Egypt": "eg",
+                "France": "fr", "Germany": "de", "India": "in", "Indonesia": "id", "Israel": "il",
+                "Italy": "it", "Malaysia": "my", "Mexico": "mx", "Netherlands": "nl", "Nigeria": "ng",
+                "Pakistan": "pk", "Peru": "pe", "Saudi Arabia": "sa", "South Africa": "za", "Spain": "es",
+                "Turkey": "tr", "United Arab Emirates": "ae", "United Kingdom": "gb", "Canada": "ca",
+                "United States": "us", "Algeria": "dz", "Angola": "ao", "Benin": "bj", "Botswana": "bw",
+                "Burkina Faso": "bf", "Burundi": "bi", "Cameroon": "cm", "Chad": "td", 
+                "Republic of the Congo": "cg", "Democratic Republic of the Congo": "cd", "Eritrea": "er",
+                "Ethiopia": "et", "Gabon": "ga", "Gambia": "gm", "Ghana": "gh", "Guinea-Bissau": "gw",
+                "Ivory Coast": "ci", "Kenya": "ke", "Lesotho": "ls", "Liberia": "lr", "Libya": "ly",
+                "Madagascar": "mg", "Malawi": "mw", "Mali": "ml", "Mauritania": "mr", "Morocco": "ma",
+                "Mozambique": "mz", "Namibia": "na", "Niger": "ne", "Rwanda": "rw", "Senegal": "sn",
+                "Sierra Leone": "sl", "Somalia": "so", "South Sudan": "ss", "Sudan": "sd", "Swaziland": "sz",
+                "Tanzania": "tz", "Togo": "tg", "Tunisia": "tn", "Uganda": "ug", "Zambia": "zm",
+                "Zimbabwe": "zw"
+            };
+            return countryCodes[countryName] || "un"; // "un" for unknown
         }
 
         function updatePrice() {
@@ -288,7 +347,40 @@
             }
         }
 
-        // Language translation
+        function updateVisitorStats() {
+            let visitCount = localStorage.getItem('visitCount') || 0;
+            visitCount = parseInt(visitCount) + 1;
+            localStorage.setItem('visitCount', visitCount);
+            document.getElementById('visitCount').textContent = visitCount;
+
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    let countryVisits = JSON.parse(localStorage.getItem('countryVisits')) || {};
+                    let country = data.country_name;
+                    let countryCode = data.country_code.toLowerCase();
+                    countryVisits[country] = {
+                        visits: (countryVisits[country]?.visits || 0) + 1,
+                        code: countryCode
+                    };
+                    localStorage.setItem('countryVisits', JSON.stringify(countryVisits));
+                    updateTopCountries();
+                })
+                .catch(error => console.error('Error fetching country data:', error));
+        }
+
+        function updateTopCountries() {
+            let countryVisits = JSON.parse(localStorage.getItem('countryVisits')) || {};
+            let sortedCountries = Object.entries(countryVisits).sort((a, b) => b[1].visits - a[1].visits);
+            let topCountriesList = document.getElementById('topCountries');
+            topCountriesList.innerHTML = '';
+            sortedCountries.slice(0, 5).forEach(([country, data]) => {
+                let li = document.createElement('li');
+                li.innerHTML = `<span class="fi fi-${data.code} country-flag"></span> ${country}: ${data.visits}`;
+                topCountriesList.appendChild(li);
+            });
+        }
+
         const translations = {
             'en': {
                 'calculator': 'Pricing Calculator',
@@ -314,7 +406,10 @@
                 'pricingDisclaimer': 'Our pricing is based on the latest WhatsApp Business API rates. For the most up-to-date and detailed pricing information, please refer to the following official sources:',
                 'whatsAppBusinessAPIPricing': 'WhatsApp Business API Pricing',
                 'facebookDevelopersPricing': 'Facebook Developers WhatsApp Pricing',
-                'pricingNote': 'Please note that pricing may vary based on factors such as country, message type, and volume. The calculator above provides estimates based on publicly available information.'
+                'pricingNote': 'Please note that pricing may vary based on factors such as country, message type, and volume. The calculator above provides estimates based on publicly available information.',
+                'visitorStatistics': 'Visitor Statistics',
+                'totalVisits': 'Total Visits:',
+                'topCountries': 'Top Visiting Countries:'
             },
             'ar': {
                 'calculator': 'حاسبة التسعير',
@@ -340,7 +435,10 @@
                 'pricingDisclaimer': 'تستند أسعارنا إلى أحدث أسعار واجهة برمجة تطبيقات WhatsApp Business. للحصول على أحدث معلومات التسعير التفصيلية، يرجى الرجوع إلى المصادر الرسمية التالية:',
                 'whatsAppBusinessAPIPricing': 'تسعير واجهة برمجة تطبيقات WhatsApp Business',
                 'facebookDevelopersPricing': 'تسعير WhatsApp لمطوري فيسبوك',
-                'pricingNote': 'يرجى ملاحظة أن الأسعار قد تختلف بناءً على عوامل مثل الدولة ونوع الرسالة والحجم. توفر الحاسبة أعلاه تقديرات بناءً على المعلومات المتاحة للجمهور.'
+                'pricingNote': 'يرجى ملاحظة أن الأسعار قد تختلف بناءً على عوامل مثل الدولة ونوع الرسالة والحجم. توفر الحاسبة أعلاه تقديرات بناءً على المعلومات المتاحة للجمهور.',
+                'visitorStatistics': 'إحصائيات الزوار',
+                'totalVisits': 'إجمالي الزيارات:',
+                'topCountries': 'أعلى الدول زيارة:'
             }
         };
 
@@ -356,20 +454,32 @@
                 element.textContent = getTranslation(key);
             });
             updatePrice();
+            updateTopCountries();
         }
 
-        // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             populateCountries();
             updatePrice();
             updateLanguage();
+            updateVisitorStats();
             
-            // Add event listeners
             document.getElementById('country').addEventListener('change', updatePrice);
             document.getElementById('messageType').addEventListener('change', updatePrice);
             document.getElementById('calculateButton').addEventListener('click', calculatePrice);
             document.getElementById('language').addEventListener('change', updateLanguage);
+
+            // إضافة أعلام الدول إلى القائمة المنسدلة
+            const countrySelect = document.getElementById('country');
+            countrySelect.addEventListener('focus', function() {
+                if (!this.classList.contains('flags-added')) {
+                    Array.from(this.options).forEach(option => {
+                        const countryCode = getCountryCode(option.textContent.trim());
+                        option.innerHTML = `<span class="fi fi-${countryCode} country-flag"></span>${option.textContent}`;
+                    });
+                    this.classList.add('flags-added');
+                }
+            });
         });
     </script>
 </body>
-</html>
+</html>				
